@@ -22,6 +22,109 @@ namespace OnionArcAndAll.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("OnionArcAndAll.Domain.Entities.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -49,23 +152,23 @@ namespace OnionArcAndAll.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 41, DateTimeKind.Local).AddTicks(7874),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 238, DateTimeKind.Local).AddTicks(7851),
                             IsDeleted = false,
-                            Name = "Kids, Health & Outdoors"
+                            Name = "Beauty"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 41, DateTimeKind.Local).AddTicks(7889),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 238, DateTimeKind.Local).AddTicks(7867),
                             IsDeleted = false,
-                            Name = "Health"
+                            Name = "Industrial"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 41, DateTimeKind.Local).AddTicks(7900),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 238, DateTimeKind.Local).AddTicks(7904),
                             IsDeleted = true,
-                            Name = "Automotive & Clothing"
+                            Name = "Computers & Electronics"
                         });
                 });
 
@@ -101,7 +204,7 @@ namespace OnionArcAndAll.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 41, DateTimeKind.Local).AddTicks(9096),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 238, DateTimeKind.Local).AddTicks(9109),
                             IsDeleted = false,
                             Name = "Elektrik",
                             ParentId = 0,
@@ -110,7 +213,7 @@ namespace OnionArcAndAll.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 41, DateTimeKind.Local).AddTicks(9099),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 238, DateTimeKind.Local).AddTicks(9113),
                             IsDeleted = false,
                             Name = "Moda",
                             ParentId = 0,
@@ -119,7 +222,7 @@ namespace OnionArcAndAll.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 41, DateTimeKind.Local).AddTicks(9100),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 238, DateTimeKind.Local).AddTicks(9114),
                             IsDeleted = false,
                             Name = "Bilgisayar",
                             ParentId = 1,
@@ -128,7 +231,7 @@ namespace OnionArcAndAll.Persistence.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 41, DateTimeKind.Local).AddTicks(9101),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 238, DateTimeKind.Local).AddTicks(9115),
                             IsDeleted = false,
                             Name = "Kadın",
                             ParentId = 2,
@@ -172,28 +275,28 @@ namespace OnionArcAndAll.Persistence.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 43, DateTimeKind.Local).AddTicks(4775),
-                            Description = "Değirmeni neque sarmal sequi qui.",
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 240, DateTimeKind.Local).AddTicks(5187),
+                            Description = "Çakıl consequatur deleniti ex quia.",
                             IsDeleted = false,
-                            Title = "Consectetur."
+                            Title = "İusto."
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 43, DateTimeKind.Local).AddTicks(4813),
-                            Description = "Eos laudantium ducimus nihil patlıcan.",
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 240, DateTimeKind.Local).AddTicks(5221),
+                            Description = "Ut quam ama quia iusto.",
                             IsDeleted = true,
-                            Title = "Laboriosam aut."
+                            Title = "Sandalye fugit."
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 4,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 43, DateTimeKind.Local).AddTicks(5045),
-                            Description = "Aut kulu aliquid eos explicabo.",
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 240, DateTimeKind.Local).AddTicks(5246),
+                            Description = "Alias masanın ona numquam aliquam.",
                             IsDeleted = false,
-                            Title = "Exercitationem."
+                            Title = "Accusantium."
                         });
                 });
 
@@ -239,23 +342,23 @@ namespace OnionArcAndAll.Persistence.Migrations
                         {
                             Id = 1,
                             BrandId = 1,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 45, DateTimeKind.Local).AddTicks(6695),
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 242, DateTimeKind.Local).AddTicks(5571),
                             Description = "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
-                            Discount = 6.478867179881730m,
+                            Discount = 8.112321235297580m,
                             IsDeleted = false,
-                            Price = 427.45m,
-                            Title = "Fantastic Frozen Fish"
+                            Price = 524.90m,
+                            Title = "Ergonomic Frozen Cheese"
                         },
                         new
                         {
                             Id = 2,
                             BrandId = 3,
-                            CreatedDate = new DateTime(2024, 5, 6, 12, 14, 22, 45, DateTimeKind.Local).AddTicks(6720),
-                            Description = "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-                            Discount = 9.272791648207490m,
+                            CreatedDate = new DateTime(2024, 5, 7, 11, 42, 7, 242, DateTimeKind.Local).AddTicks(5600),
+                            Description = "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+                            Discount = 5.625673813180640m,
                             IsDeleted = false,
-                            Price = 526.20m,
-                            Title = "Incredible Steel Ball"
+                            Price = 385.24m,
+                            Title = "Handmade Frozen Salad"
                         });
                 });
 
@@ -272,6 +375,161 @@ namespace OnionArcAndAll.Persistence.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("OnionArcAndAll.Domain.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("OnionArcAndAll.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("OnionArcAndAll.Domain.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("OnionArcAndAll.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("OnionArcAndAll.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("OnionArcAndAll.Domain.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnionArcAndAll.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("OnionArcAndAll.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OnionArcAndAll.Domain.Entities.Detail", b =>

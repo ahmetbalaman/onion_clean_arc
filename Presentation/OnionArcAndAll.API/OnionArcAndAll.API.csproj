@@ -20,4 +20,10 @@
     <ProjectReference Include="..\..\Infastructure\OnionArcAndAll.Persistence\OnionArcAndAll.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

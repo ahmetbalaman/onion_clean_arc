@@ -3,14 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnionArcAndAll.Application.Interfaces.Repositories;
 using OnionArcAndAll.Application.Interfaces.UnitOfWorks;
+using OnionArcAndAll.Domain.Entities;
 using OnionArcAndAll.Persistence.Context;
 using OnionArcAndAll.Persistence.Repositories;
 using OnionArcAndAll.Persistence.UnitOfWorks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnionArcAndAll.Persistence
 {
@@ -25,6 +21,18 @@ namespace OnionArcAndAll.Persistence
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddIdentityCore <User> (options => {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredUniqueChars = 0;
+                options.SignIn.RequireConfirmedEmail = false;
+
+
+            }).AddRoles<Role>().AddEntityFrameworkStores<AppDbContext>();
          
         }
     }

@@ -1,4 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using OnionArcAndAll.Application.Bases;
+using OnionArcAndAll.Application.Features.Products.Rules;
+using OnionArcAndAll.Application.Interfaces.AutoMapper;
 using OnionArcAndAll.Application.Interfaces.UnitOfWorks;
 using OnionArcAndAll.Domain.Entities;
 using System;
@@ -9,17 +13,22 @@ using System.Threading.Tasks;
 
 namespace OnionArcAndAll.Application.Features.Products.Command.CreateProduct
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest,Unit>
+    public class CreateProductCommandHandler : BaseHandler, IRequestHandler<CreateProductCommandRequest,Unit>
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ProductRules productRules;
 
-        public CreateProductCommandHandler(IUnitOfWork unitOfWork)
+        public CreateProductCommandHandler(ProductRules productRules,IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
         {
-            this.unitOfWork = unitOfWork;
+            this.productRules = productRules;
         }
 
         public async Task<Unit> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
         {
+            IList<Product> products = await unitOfWork.GetReadRepository<Product>().GetAllAsync();
+
+            
+            await productRules.ValidateProductTitle(products,request.Title);
+
             Product product = new(
                 request.Title,request.Description,request.BrandId,request.Price,request.Discount
 
