@@ -5,6 +5,7 @@ using OnionArcAndAll.Application.Bases;
 using OnionArcAndAll.Application.Behaviors;
 using OnionArcAndAll.Application.Exceptions;
 using OnionArcAndAll.Application.Features.Products.Rules;
+using OnionArcAndAll.Application.Interfaces.RedisCache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +29,12 @@ namespace OnionArcAndAll.Application
             services.AddValidatorsFromAssembly(assembly);
             ValidatorOptions.Global.LanguageManager.Culture= new System.Globalization.CultureInfo("tr");
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
-
             // Register services from the assembly
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
+
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RedisCacheBehavior<,>));
         }
 
         private static IServiceCollection AddRulesFromAssemblyContaining(this IServiceCollection services, Assembly assembly, Type type)

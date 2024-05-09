@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using OnionArcAndAll.Application.Interfaces.RedisCache;
 using OnionArcAndAll.Application.Interfaces.Tokens;
+using OnionArcAndAll.Infastructure.RedisCache;
 using OnionArcAndAll.Infastructure.Tokens;
 using System.Text;
 
@@ -14,6 +16,10 @@ namespace OnionArcAndAll.Infastructure
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT"));
              services.AddTransient<ITokenService, TokenService>();
+           
+            services.Configure<RedisCacheSettings>(configuration.GetSection("RedisCacheSettings"));
+             services.AddTransient<IRedisCacheService, RedisCacheService>();
+            
 
             services.AddAuthentication(opt =>
             {
@@ -36,6 +42,16 @@ namespace OnionArcAndAll.Infastructure
                 };
 
             });
+
+
+            services.AddStackExchangeRedisCache(
+                opt=>
+                {
+                    opt.Configuration = configuration.GetConnectionString("RedisCacheSettings:ConnectionString");
+                    opt.InstanceName = configuration.GetConnectionString("RedisCacheSettings:InstanceName");
+                }
+                );
+
 
 
         }

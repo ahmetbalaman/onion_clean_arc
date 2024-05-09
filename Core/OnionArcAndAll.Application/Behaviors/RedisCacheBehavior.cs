@@ -30,7 +30,7 @@ namespace OnionArcAndAll.Application.Behaviors
 
                 var response = await next();
                 if(response is not null)
-                    await redisCacheService.SetAsync(cacheKey, response, DateTime.Now.AddMinutes(cachedTime));
+                    await redisCacheService.SetAsync(cacheKey, response, DateTime.Now.AddMinutes(cacheTime));
                 return response;
             }
             return await next();

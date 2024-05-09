@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnionArcAndAll.Infastructure.RedisCache
 {
-    internal class RedisCacheService : IRedisService
+    internal class RedisCacheService : IRedisCacheService
     {
         private readonly ConnectionMultiplexer redisConnection;
         private readonly IDatabase database;
